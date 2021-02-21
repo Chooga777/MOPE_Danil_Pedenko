@@ -1,1 +1,3 @@
-# MOPE_Danil_Pedenko
+# Педенко Данило ІО-92
+Лабораторна робота№1
+![alt text](result/MOPE1.png)
