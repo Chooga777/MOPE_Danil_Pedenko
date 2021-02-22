@@ -16,6 +16,7 @@ a = []
 c = 0
 minimal = 100000
 koef = 0
+# Цикл для знаходження точки плану, що задовольняє критерію вибору
 for i in range(len(matr_y)):
     temp = matr_y[i] - matr_x0[3]
     if temp < 0:
