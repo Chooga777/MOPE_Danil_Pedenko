@@ -14,20 +14,17 @@ matr_dx = [max(TX[i]) - matr_x0[i] for i in range(len(TX))]
 matr_xn = [[(matr_x[i][j] - matr_x0[j]) / matr_dx[j] for j in range(3)] for i in range(8)]
 a = []
 c = 0
+minimal = 100000
+koef = 0
 for i in range(len(matr_y)):
     temp = matr_y[i] - matr_x0[3]
     if temp < 0:
         a.append([])
         a[len(a) - 1].append(temp)
         a[len(a) - 1].append(i)
-maximum = a[0][0]
-koef = 0
-for i in range(len(a)):
-    for j in a[i]:
-        if j < 0:
-            if maximum < j:
-                maximum = j
-                koef = i
+        if minimal > (-temp):
+            minimal = -temp
+            koef = len(a) - 1
 ta = PrettyTable()
 ta.field_names = ["#", "X1", "X2", "X3", "Y", " ", "XN1", "XN2", "XN3"]
 ta.add_rows(
