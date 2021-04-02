@@ -42,6 +42,7 @@ def student(eq, n, list_sig, list_av_y, list_x, koef, list_xn):
     s_beta = ma.sqrt(s_sq_beta)
     list_beta = []
     new_koef = []
+    no_matter_koef = []
     for i in range(len(list_x)):
         pol = 0
         for j in range(len(list_x[i])):
@@ -62,17 +63,14 @@ def student(eq, n, list_sig, list_av_y, list_x, koef, list_xn):
                 if list_t[j] < list_t_prover[i]:
                     print("\nt{0} = {1} < tтабл = {2}".format(j, list_t[j], list_t_prover[i]))
                     print("b{0} - виключається з рівняння".format(j))
+                    no_matter_koef.append([j, koef[j]])
                 else:
                     print("\nt{0} = {1} > tтабл = {2}".format(j, list_t[j], list_t_prover[i]))
                     new_koef.append([j, koef[j]])
     print("\nПерепишемо рівняння враховуючи вилучених коефіцієнтів")
-    rivn = "y = "
-    for i in range(len(new_koef)):
-        if i == 0:
-            rivn += str(new_koef[i][1])
-        else:
-            rivn += " + " + str(new_koef[i][1]) + " * x{0}".format(new_koef[i][0])
-    print(rivn)
+    print(vivod(new_koef))
+    print("\nРівняння з використанням незначимих коефіцієнтів")
+    print(vivod(no_matter_koef))
     list_res_y = []
     print("\nПідставимо необхідні значення X")
     for i in range(len(list_xn)):
@@ -115,6 +113,18 @@ def fisher(d, n, eq, list_res_y, list_av_y, sv):
                 else:
                     print("\nFp = {0} < Ft = {1}".format(fp, i[1][f4 - 1]))
                     print("Рівняння регресії адекватно оригіналу")
+
+
+def vivod(ar):
+    rivn = "y = "
+    for i in range(len(ar)):
+        if ar[i][0] == 0:
+            rivn += str(ar[i][1])
+        elif i == 0:
+            rivn += str(ar[i][1]) + " * x{0}".format(ar[i][0])
+        else:
+            rivn += " + " + str(ar[i][1]) + " * x{0}".format(ar[i][0])
+    return rivn
 
 
 m = 3
