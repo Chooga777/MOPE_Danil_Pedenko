@@ -79,6 +79,7 @@ def student(eq, n, list_sig, list_av_y, list_x, koef, list_xn):
     if len(new_koef) < len(no_matter_koef):
         print("Кількість значимих коефіцієнтів = {0} < {1} = Кількість незначимих коефіцієнтів".format(len(new_koef),
                                                                                                 len(no_matter_koef)))
+        print("Модель неадекватна\n")
         return True
     print("Кількість значимих коефіцієнтів = {0} >= {1} = Кількість незначимих коефіцієнтів".format(len(new_koef),
                                                                                                 len(no_matter_koef)))
