@@ -76,6 +76,12 @@ def student(eq, n, list_sig, list_av_y, list_x, koef, list_xn):
     print(vivod(new_koef))
     print("\nРівняння з використанням незначимих коефіцієнтів")
     print(vivod(no_matter_koef))
+    if len(new_koef) < len(no_matter_koef):
+        print("Кількість значимих коефіцієнтів = {0} < {1} = Кількість незначимих коефіцієнтів".format(len(new_koef),
+                                                                                                len(no_matter_koef)))
+        return True
+    print("Кількість значимих коефіцієнтів = {0} >= {1} = Кількість незначимих коефіцієнтів".format(len(new_koef),
+                                                                                                len(no_matter_koef)))
     list_res_y = []
     print("\nПідставимо необхідні значення X")
     for i in range(len(list_xn)):
@@ -243,8 +249,12 @@ def main1(m, n):
             round(res_full[4], 3), round(res_full[5], 3), round(res_full[6], 3)))
         print("\nПеревірка однорідності дисперсії за критерієм Кохрена")
         if cochrane(m, 8, array_y, array_aver_y, np.array(array_xp_full).transpose(), res_full, array_xn_full):
-            print("\nПерезапускаємо програму\n")
-            main1(m, n)
+            stoper = input("Якщо ви хочете зупинити програму напишіть \"stop\": ")
+            if stoper == "stop":
+                return "Завершуємо програму"
+            else:
+                print("\nПерезапускаємо програму\n")
+                main1(m, n)
 
 
 main1(3, 8)
