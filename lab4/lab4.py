@@ -251,7 +251,7 @@ def main1(m, n):
         if cochrane(m, 8, array_y, array_aver_y, np.array(array_xp_full).transpose(), res_full, array_xn_full):
             stoper = input("Якщо ви хочете зупинити програму напишіть \"stop\": ")
             if stoper == "stop":
-                return "Завершуємо програму"
+                return print("Завершуємо програму")
             else:
                 print("\nПерезапускаємо програму\n")
                 main1(m, n)
