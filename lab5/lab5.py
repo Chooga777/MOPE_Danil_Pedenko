@@ -1,6 +1,7 @@
 import numpy as np
 import random as ra
 import math as ma
+import time as ti
 from scipy.stats import f
 import sklearn.linear_model as slm
 from copy import deepcopy
@@ -162,7 +163,7 @@ def expanded_matr(list_x):
         list_x[i].append(list_x[i][0] * list_x[i][1] * list_x[i][2])
         if len(list_x) > 9:
             for j in range(3):
-                list_x[i].append(list_x[i][j]**2)
+                list_x[i].append(list_x[i][j] ** 2)
     return list_x
 
 
@@ -279,14 +280,16 @@ def main1(m, n):
             for i in array_xp_zor:
                 i.insert(0, 1)
             ta_zor = PrettyTable()
-            ta_zor.field_names = ["X0", "X1", "X2", "X3", "X1X2", "X1X3", "X2X3", "X1X2X3", "X1^2", "X2^2", "X3^2", "Y1", "Y2", "Y3"]
+            ta_zor.field_names = ["X0", "X1", "X2", "X3", "X1X2", "X1X3", "X2X3", "X1X2X3", "X1^2", "X2^2", "X3^2",
+                                  "Y1", "Y2", "Y3"]
             for i in range(n):
                 ta_zor.add_row(array_xp_zor[i] + array_y[i])
             print("\nВрахуємо квадратичні коефіцієнти\n")
             print("Матриця ПЕ для ОЦКП із нормованими значеннями")
             print(ta_zor)
             ta1_zor = PrettyTable()
-            ta1_zor.field_names = ["X1", "X2", "X3", "X1X2", "X1X3", "X2X3", "X1X2X3", "X1^2", "X2^2", "X3^2", "Y1", "Y2", "Y3"]
+            ta1_zor.field_names = ["X1", "X2", "X3", "X1X2", "X1X3", "X2X3", "X1X2X3", "X1^2", "X2^2", "X3^2", "Y1",
+                                   "Y2", "Y3"]
             for i in range(n):
                 ta1_zor.add_row(array_xn_zor[i] + array_y[i])
             print("\nМатриця ПЕ для ОЦКП із натуралізованими значеннями")
@@ -304,14 +307,26 @@ def main1(m, n):
             print(rivn)
             print("\nПеревірка однорідності дисперсії за критерієм Кохрена")
             if cochrane(m, n, array_y, array_aver_y, np.array(array_xp_zor).transpose(), res_zor, array_xn_zor):
-                stoper = input("Якщо ви хочете зупинити програму напишіть \"stop\": ")
-                if stoper == "stop":
-                    return print("Завершуємо програму")
-                else:
-                    m = 3
-                    n = 8
-                    print("\nПерезапускаємо програму\n")
-                    main1(m, n)
+                # stoper = input("Якщо ви хочете зупинити програму напишіть \"stop\": ")
+                # if stoper == "stop":
+                #     return print("Завершуємо програму")
+                # else:
+                m = 3
+                n = 8
+                print("\nПерезапускаємо програму\n")
+                return main1(m, n)
+
+            else:
+                return ti.time()
+        else:
+            return ti.time()
+    else:
+        return ti.time()
 
 
-main1(3, 8)
+total_time = []
+for i in range(100):
+    start_time = ti.time()
+    total_time.append(main1(3, 8) - start_time)
+print("\nСередній час виконання програми:")
+print(sum(total_time) / len(total_time))
