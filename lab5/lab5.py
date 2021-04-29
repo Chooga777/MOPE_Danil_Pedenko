@@ -307,10 +307,6 @@ def main1(m, n):
             print(rivn)
             print("\nПеревірка однорідності дисперсії за критерієм Кохрена")
             if cochrane(m, n, array_y, array_aver_y, np.array(array_xp_zor).transpose(), res_zor, array_xn_zor):
-                # stoper = input("Якщо ви хочете зупинити програму напишіть \"stop\": ")
-                # if stoper == "stop":
-                #     return print("Завершуємо програму")
-                # else:
                 m = 3
                 n = 8
                 print("\nПерезапускаємо програму\n")
