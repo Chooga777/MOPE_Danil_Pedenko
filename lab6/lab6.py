@@ -140,14 +140,6 @@ def output_equation(res):
     return rivn
 
 
-def riv_koef(list_x, list_y):
-    skm = slm.LinearRegression(fit_intercept=False)
-    skm.fit(list_x, list_y)
-    B = skm.coef_
-    B = [round(i, 4) for i in B]
-    return B
-
-
 def find_average(lst):
     average = []
     for column in range(len(lst[0])):
