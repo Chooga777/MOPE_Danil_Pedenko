@@ -2,7 +2,6 @@ import numpy as np
 import random as ra
 import math as ma
 from scipy.stats import f
-import sklearn.linear_model as slm
 from copy import deepcopy
 from prettytable import PrettyTable
 
