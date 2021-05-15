@@ -4,9 +4,11 @@ import math as ma
 from scipy.stats import f
 from copy import deepcopy
 from prettytable import PrettyTable
+import time as ti
 
 
 def cochrane(eq, n, list_y, list_av_y, list_x, koef, list_xn):
+    start_cochrane = ti.time()
     i = 0
     f1 = eq - 1
     f2 = n
@@ -29,6 +31,7 @@ def cochrane(eq, n, list_y, list_av_y, list_x, koef, list_xn):
             if gp < list_g[i] / 10000:
                 print("\nGp = {0} < Gt = {1}".format(gp, list_g[i] / 10000))
                 print("Дисперсія однорідна\n")
+                print("Час виконання критерію Кохрена: {0}\n".format(ti.time() - start_cochrane))
                 print("Оцінимо значимість коефіцієнтів регресії згідно критерію Стьюдента")
                 if student(eq, n, list_sig, list_av_y, list_x, koef, list_xn):
                     return True
@@ -42,6 +45,7 @@ def student(eq, n, list_sig, list_av_y, list_x, koef, list_xn):
     list_t_prover = [12.71, 4.303, 3.182, 2.776, 2.571, 2.447, 2.365, 2.306, 2.262, 2.228, 2.201, 2.179, 2.160, 2.145,
                      2.131, 2.120, 2.110, 2.101, 2.093, 2.086, 2.080, 2.074, 2.069, 2.064, 2.060, 2.056, 2.052, 2.048,
                      2.045, 2.042]
+    start_student = ti.time()
     sv = sum(list_sig) / len(list_sig)
     s_sq_beta = sv / (n * eq)
     s_beta = ma.sqrt(s_sq_beta)
@@ -87,6 +91,7 @@ def student(eq, n, list_sig, list_av_y, list_x, koef, list_xn):
                 pol += list_xn[i][new_koef[j][0] - 1] * new_koef[j][1]
         list_res_y.append(pol)
         print("y{0} = {1}".format(i, pol))
+    print("\nЧас виконання критерію Стьюдента: {0}".format(ti.time() - start_student))
     print("\nКритерій Фішера")
     if fisher(len(new_koef), n, eq, list_res_y, list_av_y, sv):
         return True
@@ -95,6 +100,7 @@ def student(eq, n, list_sig, list_av_y, list_x, koef, list_xn):
 
 
 def fisher(d, n, eq, list_res_y, list_av_y, sv):
+    start_fisher = ti.time()
     f4 = n - d
     f3 = (eq - 1) * n
     temp = 0
@@ -110,10 +116,12 @@ def fisher(d, n, eq, list_res_y, list_av_y, sv):
     if fp > ft:
         print("\nFp = {0} > Ft = {1}".format(fp, ft))
         print("Рівняння регресії неадекватно оригіналу")
+        print("Час виконання критерію Фішера: {0}".format(ti.time() - start_fisher))
         return True
     else:
         print("\nFp = {0} < Ft = {1}".format(fp, ft))
         print("Рівняння регресії адекватно оригіналу")
+        print("\nЧас виконання критерію Фішера: {0}".format(ti.time() - start_fisher))
         return False
 
 
